@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MapTrace: Scalable Data Generation for Route Tracing on Maps">
+  <meta name="keywords" content="map reasoning; multimodality; LLMs; navigation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MapTrace: Scalable Data Generation for Route Tracing on Maps</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div> -->
+  <!-- <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="dummy.com">
+          Dummy
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+  <!-- </div> -->
+<!-- </nav> -->
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><img src="static/images/MapTrace_Logo.png" alt="maptrace logo" width="50">MapTrace: Scalable Data Generation for Route Tracing on Maps</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://artemisp.github.io">Artemis Panagopoulou</a><sup>2,*</sup>,</span>
+            <span class="author-block">
+              <a href="">Aveek Purohit</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="">Achin Kulshrestha</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Soroosh Yazdani</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Mohit Goyal</a><sup>1</sup>,
+            </span>
+          </div>
+
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Google XR, </span>
+            <span class="author-block"><sup>2</sup>University of Pennsylvania</span><br>
+            <span class="author-block"><sup>*</sup>Work done during internship at Google XR</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/google-research/MapTrace?tab=readme-ov-file"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/google/MapTrace"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video> -->
+      <h2 class="subtitle has-text-centered">
+      Humans can easily trace valid routes on maps given start and end points. Can AI do the same?
+      </h2>
+      <div class="item item-teaser1" style="display: flex; justify-content: center; gap: 10px;">
+        <!-- <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+          <source src="./static/videos/chair-tp.mp4"
+                  type="video/mp4">
+        </video> -->
+          <img src="static/images/teaser.png" alt="teaser.png" width="80%">
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video> -->
+      <h2 class="subtitle has-text-centered">
+        Our paper introduces a scalable data generation framework to create high-quality data for route tracing on maps, along with a new dataset, MapTrace.
+      </h2>
+    </div>
+  </div>
+</section>
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-s1">
+          <!-- <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video> -->
+          <img src="static/images/s1.png" alt="s1.png" width="100%">
+        </div>
+        <div class="item item-s2">
+          <img src="static/images/s2.png" alt="s2.png" width="100%">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          
+          <p>
+          While Multimodal Large Language Models have achieved human-like performance on many visual and textual reasoning tasks, their proficiency in fine-grained spatial understanding, such as route tracing on maps, remains limited. 
+          </p>
+          <p>
+          Unlike humans, who can quickly learn to parse and navigate maps, current models often fail to respect fundamental path constraints, in part due to the prohibitive cost and difficulty of collecting large-scale, pixel-accurate path annotations. 
+          </p>
+          <p>
+          To address this, we introduce a scalable synthetic data generation pipeline that leverages synthetic map images and pixel-level parsing to automatically produce precise annotations for this challenging task. Using this pipeline, we construct a fine-tuning dataset of 23k path samples across 4k maps, enabling models to acquire more human-like spatial capabilities. 
+          </p>
+          <p>
+            Using this dataset, we fine-tune both open-source and proprietary MLLMs. Results on MapBench show that finetuning substantially improves robustness, raising success rates by up to 6.4 points, while also reducing path-tracing error (NDTW). These gains highlight that fine-grained spatial reasoning, absent in pretrained models, can be explicitly taught with synthetic supervision.
+          </p>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Synthetic Data Generation Overview</h2>
+        <!-- <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+          <source src="./static/images/overview.mp4"
+                  type="video/mp4">
+        </video> -->
+        <!-- <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+        <img src="static/images/maptrace_overview_v2.png" alt="overview" width="800">
+        <p><img src="static/images/MapTrace_Logo.png" alt="maptrace logo" width="20"><b>MapTrace Synthetic data generation pipeline.</b> A LLM generates various map descriptions, which are rendered into images by a text-to-image model. Candidate path masks are extracted and filtered by a Mask Critic. Valid masks are converted into a pixel-graph to compute shortest-path candidates, which are then judged by a Path Critic for quality and traversability.</p>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Animation. -->
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animation</h2> -->
+
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/> -->
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <h3 class="title is-4">How do models perform in path tracing on maps?</h3>
+        <div class="content has-text-justified">
+          <p>
+            We evaluate leading multimodal models on MapBench to assess their ability to trace routes across diverse map types (e.g., Malls, Urban areas, Zoos). We utilize Normalized Dynamic Time Warping (NDTW) to measure geometric alignment (lower is better) and Success Rate (SR) to measure instruction adherence.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/applications.png"
+               alt="ViUniT Applications"/>
+          <!-- <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video> -->
+        </div><br>
+      </div>
+
+      <h3 class="title is-4">How does our dataset improve performance?</h3>
+        <div class="content has-text-justified">
+          <p>
+            Finetuning on our synthetic MapTrace dataset significantly bridges the gap between general capability and precise spatial reasoning. For Gemini 2.5 Flash, finetuning reduces the average NDTW error on <b>real</b> maps from <a href="https://arxiv.org/abs/2503.14607">MapBench</a> by 32.5% (1.29→0.87), surpassing the heuristic baseline and achieving state-of-the-art performance.          </p>
+        </div>
+        <div class="content has-text-centered">
+          <img src="./static/images/ft.png"
+               alt="ViUniT Applications"/>
+          <!-- <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video> -->
+        </div><br>
+      </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>TBD</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href=".">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/artemisp" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+           This webpage is adapted from  <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
